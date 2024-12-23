@@ -1,0 +1,8 @@
+model:
+  path: "model"
+
+data:
+  test_path: "csdn_test.xlsx"
+
+output:
+  result_path: "output.csv"

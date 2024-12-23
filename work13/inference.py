@@ -1,0 +1,85 @@
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import pandas as pd
+from sklearn.metrics import recall_score
+import argparse
+
+def get_f1_score(y, y_hat):
+    # 采用micro评测recall
+    recall= recall_score(y, y_hat, average='micro')
+
+    # 计算标签准确率precision，忽略标签顺序
+    acc = 0
+    for i in range(len(y)):
+        right_tags = y[i].split(",")
+        predict_tags = y_hat[i].split(",")
+        if set(right_tags) == set(predict_tags):
+            acc += 1
+            
+    precision = acc / len(y)
+
+    f1_score = 2 * precision * recall / (precision + recall)
+
+    print(f"Precision: {precision}, Recall: {recall}, F1: {f1_score}")
+    
+# TODO 修改这里的参数，包括模型路径、测试数据路径和输出路径，以及系统提示词
+parser = argparse.ArgumentParser()
+parser.add_argument("--model_dir", type=str, default="./model")
+parser.add_argument("--sys_prompt", type=str, default="You are Qwen. You are an expert at categorizing tags based on blog content.")
+parser.add_argument("--test_dir", type=str, default="csdn_test.xlsx")
+parser.add_argument("--output_dir", type=str, default="pred_list.csv")
+args = parser.parse_args()
+
+model_path = args.model_dir
+test_data_path = args.test_dir
+output_path = args.output_dir
+
+test_data = pd.read_excel(test_data_path)
+
+model = AutoModelForCausalLM.from_pretrained(
+    model_path,
+    torch_dtype="auto",
+    device_map="auto",
+    local_files_only=True,
+    trust_remote_code=True,
+)
+tokenizer = AutoTokenizer.from_pretrained(
+    model_path,
+    local_files_only=True,
+    trust_remote_code=True,
+)
+
+ans_list_pred = []
+for _, row in test_data.iterrows():
+    id = row["    Blog ID"]
+    content = row["正文前 256符号"]
+    messages = [
+        {"role": "system", "content": args.sys_prompt},
+        {"role": "user", "content": content}
+    ]
+    text = tokenizer.apply_chat_template(
+        messages,
+        tokenize=False,
+        add_generation_prompt=True
+    )
+    model_inputs = tokenizer([text], return_tensors="pt").to(model.device)
+
+    generated_ids = model.generate(
+        **model_inputs,
+        max_new_tokens=512
+    )
+    generated_ids = [
+        output_ids[len(input_ids):] for input_ids, output_ids in zip(model_inputs.input_ids, generated_ids)
+    ]
+
+    response = tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
+    
+    ans_list_pred.append([id, response])
+
+df = pd.DataFrame(ans_list_pred, columns=["文章ID", "匹配标签"])
+df.to_csv(output_path, index=False, encoding='utf-8')
+
+# 计算 precision, recall 和 F1 分数
+right_ans = test_data["Tags"].tolist()
+pred_list = [ans_list_pred[i][1] for i in range(len(right_ans))]
+
+get_f1_score(right_ans, pred_list)
