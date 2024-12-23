@@ -3,8 +3,7 @@ import pandas as pd
 from sklearn.metrics import recall_score
 
 def load_model_path():
-    model_name = "Qwen/Qwen2.5-7B-Instruct"
-    model_path = "xxx" # TODO 请填写你的模型路径
+    model_path = "csdn/glm/model" # 请填写你的模型路径
 
     model = AutoModelForCausalLM.from_pretrained(
         model_path,
@@ -35,7 +34,7 @@ def calculate_score(predict_ans, right_ans):
     return accuracy, recall, f1_score
 
 def pred_content(content: str, model, tokenizer):
-    content = "根据博客内容预测其标签。\n" + content
+    content = content
     messages = [
         {"role": "system", "content": "You are Qwen. You are a helpful assistant."},
         {"role": "user", "content": content}

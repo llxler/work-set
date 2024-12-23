@@ -3,8 +3,8 @@ import pandas as pd
 from sklearn.metrics import recall_score
 
 def pretrained_model():
-    model_name = "Qwen/Qwen2.5-7B-Instruct"
-    model_path = "xxx" # TODO 请填写你的模型路径
+    model_name = "your_model_name"
+    model_path = "your_model_path" # TODO 请填写你的模型路径
 
     model = AutoModelForCausalLM.from_pretrained(
         model_path,
@@ -23,10 +23,10 @@ def pretrained_model():
     return model, tokenizer
 
 def pred_content(content: str, model, tokenizer):
-    content = "根据博客内容预测其标签。\n" + content
+    prompt = content
     messages = [
-        {"role": "system", "content": "You are Qwen. You are a helpful assistant."},
-        {"role": "user", "content": content}
+        {"role": "system", "content": "You are Qwen. Help me reason through blog content with tags."},
+        {"role": "user", "content": prompt}
     ]
     text = tokenizer.apply_chat_template(
         messages,

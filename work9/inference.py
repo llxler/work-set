@@ -2,6 +2,8 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import pandas as pd
 from sklearn.metrics import recall_score
 
+model_path = ""
+
 def get_score(predict_ans, right_ans):
     # 初始化计数器
     TP, FP_FN = 0, 0
@@ -22,9 +24,9 @@ def get_score(predict_ans, right_ans):
 
 
 def tag_pred(content: str, model, tokenizer):
-    content = "根据博客内容预测其标签。\n" + content
+    content = content
     messages = [
-        {"role": "system", "content": "You are Qwen. You are a helpful assistant."},
+        {"role": "system", "content": "Give me some tags for this blog content."},
         {"role": "user", "content": content}
     ]
     text = tokenizer.apply_chat_template(
@@ -46,12 +48,11 @@ def tag_pred(content: str, model, tokenizer):
 
     return response
 
-def qwen_output():
+def glm_output():
     test_data = pd.read_excel("csdn_test.xlsx")
     right_ans = test_data["Tags"].tolist()
     
-    model_name = "Qwen/Qwen2.5-7B-Instruct"
-    model_path = "xxx" # TODO 请填写你的模型路径
+    
 
     model = AutoModelForCausalLM.from_pretrained(
         model_path,
@@ -80,7 +81,7 @@ def main():
     test_data = pd.read_excel("csdn_test.xlsx")
     right_ans = test_data["Tags"].tolist()
     
-    tag_list = qwen_output()
+    tag_list = glm_output()
     
     pred_pd = pd.DataFrame(tag_list, columns=["文章ID", "匹配标签"])
     pred_pd.to_csv("pred_ans.csv", index=False, encoding='utf-8')

@@ -2,7 +2,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from tqdm import tqdm
 import pandas as pd
 
-model_path = "xxx"
+model_path = "change this path!!!"
 
 tokenizer = AutoTokenizer.from_pretrained(
     pretrained_model_name_or_path=model_path, local_files_only=True, trust_remote_code=True,
@@ -16,9 +16,7 @@ test_data = pd.read_excel("csdn_test.xlsx")
 ans = [] # 文章id， 匹配标签
 for i in tqdm(range(len(test_data))):
     id = test_data.loc[i, "    Blog ID"]
-    content = test_data.loc[i, "正文前 256符号"] 
-    
-    content = "根据博客内容预测其标签。\n" + content
+    content = test_data.loc[i, "正文前 256符号"]
     messages = [
         {"role": "system", "content": "You are Qwen, created by Alibaba Cloud. You are a helpful assistant."},
         {"role": "user", "content": content}

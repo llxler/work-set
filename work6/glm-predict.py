@@ -29,8 +29,8 @@ def get_ans(content, model, tokenizer):
     return response
 
 def main():
-    model_name = "Qwen/Qwen2.5-7B-Instruct"
-    model_path = "xxx"
+    model_name = "glm"
+    model_path = "model"
     test_data = pd.read_excel("csdn_test.xlsx")
     
     tokenizer = AutoTokenizer.from_pretrained(
@@ -48,11 +48,10 @@ def main():
     )
     
     
-
     ans = [] # 文章id， 匹配标签
     for i in tqdm(range(len(test_data))):
         id = test_data.loc[i, "    Blog ID"]
-        prompt = "根据博客内容预测其标签。\n" + test_data.loc[i, "正文前 256符号"]
+        prompt = test_data.loc[i, "正文前 256符号"]
         response = get_ans(prompt, model, tokenizer)
         ans.append([id, response])
     # 保存成csv
@@ -64,7 +63,6 @@ def main():
     right_ans = test_data["Tags"].tolist()
     predict_ans = [ans[i][1] for i in range(len(right_ans))]
 
-    # 转换为 one-hot 格式或直接处理多标签
     precision, recall, f1, _ = precision_recall_fscore_support(right_ans, predict_ans, average='micro')
 
     print(f"Precision: {precision}, Recall: {recall}, F1-Score: {f1}")

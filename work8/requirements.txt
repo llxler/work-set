@@ -1,0 +1,10 @@
+transformers
+tqdm
+accelerate
+scikit-learn
+pandas
+openpyxl
+torch
+torchvision
+torchaudio
+numpy

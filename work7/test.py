@@ -3,21 +3,7 @@ from tqdm import tqdm
 import pandas as pd
 from sklearn.metrics import precision_recall_fscore_support
 
-def get_input(content, model, tokenizer):
-    
-    messages = [
-        {"role": "system", "content": "You're a master at giving tags based on content."},
-        {"role": "user", "content": content}
-    ]
-    
-    text = tokenizer.apply_chat_template(
-        messages,
-        tokenize=False,
-        add_generation_prompt=True
-    )
-    model_inputs = tokenizer([text], return_tensors="pt").to(model.device)
-    
-    return model_inputs
+model_path = "/model/glm" # TODO 修改为你的模型路径
 
 def llmpred(content, model, tokenizer):
     
@@ -35,9 +21,24 @@ def llmpred(content, model, tokenizer):
 
     return response
 
+def get_input(content, model, tokenizer):
+    
+    messages = [
+        {"role": "system", "content": "Instruct the model to predict the tags based on the blog content."},
+        {"role": "user", "content": content}
+    ]
+    
+    text = tokenizer.apply_chat_template(
+        messages,
+        tokenize=False,
+        add_generation_prompt=True
+    )
+    model_inputs = tokenizer([text], return_tensors="pt").to(model.device)
+    
+    return model_inputs
+
 def main():
-    model_name = "Qwen/Qwen2.5-7B-Instruct"
-    model_path = "xxx"
+    
     test_data = pd.read_excel("csdn_test.xlsx")
     
     tokenizer = AutoTokenizer.from_pretrained(
@@ -57,7 +58,7 @@ def main():
     pred_list = [] # 文章id， 匹配标签
     for i in range(len(test_data)):
         id = test_data.loc[i, "    Blog ID"]
-        prompt = "根据博客内容预测其标签。\n" + test_data.loc[i, "正文前 256符号"]
+        prompt = test_data.loc[i, "正文前 256符号"]
         response = llmpred(prompt, model, tokenizer)
         pred_list.append([id, response])
     

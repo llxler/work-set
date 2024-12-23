@@ -2,10 +2,10 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 import pandas as pd
 from sklearn.metrics import recall_score
 
-def inference(prompt: str, model, tokenizer):
-    prompt = "根据博客内容预测其标签。\n" + prompt
+def predict(prompt: str, model, tokenizer):
+    prompt = prompt
     messages = [
-        {"role": "system", "content": "You are Qwen, created by Alibaba Cloud. You are a helpful assistant."},
+        {"role": "system", "content": " Help me reason through blog content with tags."},
         {"role": "user", "content": prompt}
     ]
     text = tokenizer.apply_chat_template(
@@ -62,7 +62,7 @@ def load_model(model_path):
     return model, tokenizer
 
 def main():
-    model_path = "xxx"
+    model_path = ""
     test_data = pd.read_excel("csdn_test.xlsx")
     
     model, tokenizer = load_model(model_path)
@@ -71,7 +71,7 @@ def main():
     for i in range(test_data.shape[0]):
         id = test_data.loc[i, "    Blog ID"]
         prompt = test_data.loc[i, "正文前 256符号"] 
-        response = inference(prompt, model, tokenizer)
+        response = predict(prompt, model, tokenizer)
         pred.append([id, response])
     
     ans_df = pd.DataFrame(pred, columns=["文章ID", "匹配标签"])

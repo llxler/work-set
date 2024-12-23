@@ -2,7 +2,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer
 from tqdm import tqdm
 import pandas as pd
 
-model_path = "xxx"
+model_path = "model"
 
 def prepare():
     tokenizer = AutoTokenizer.from_pretrained(
@@ -52,7 +52,7 @@ def main():
     pred_ans = [] # 文章id， 匹配标签
     for i in tqdm(range(len(test_data))):
         id = test_data.loc[i, "    Blog ID"]
-        content = "根据博客内容预测其标签。\n" + test_data.loc[i, "正文前 256符号"] 
+        content =  test_data.loc[i, "正文前 256符号"] 
         pred_ans.append([id, predict_qwen(content, model, tokenizer)])
         
     # 保存成csv

@@ -1,10 +1,10 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from tqdm import tqdm
 import pandas as pd
-from sklearn.metrics import precision_score, recall_score
+from sklearn.metrics import precision_recall_fscore_support
 
-model_name = "Qwen/Qwen2.5-7B-Instruct"
-model_path = "your_model_path"
+model_path = "./model"
+test_data_path = "csdn_test.xlsx"
 
 model = AutoModelForCausalLM.from_pretrained(
     model_path,
@@ -20,13 +20,12 @@ tokenizer = AutoTokenizer.from_pretrained(
     trust_remote_code=True,
 )
 
-test_data = pd.read_excel("../csdn_test.xlsx")
+test_data = pd.read_excel(test_data_path)
 
 def llm_inference(content: str):
-    content = "根据博客内容预测其标签。\n" + content
     messages = [
-    {"role": "system", "content": "You are Qwen, created by Alibaba Cloud. You are a helpful assistant."},
-    {"role": "user", "content": content}
+        {"role": "system", "content": "You are Qwen. You are an expert at categorizing tags based on blog content."},
+        {"role": "user", "content": content}
     ]
     text = tokenizer.apply_chat_template(
         messages,
@@ -55,23 +54,30 @@ for i in tqdm(range(len(test_data))):
     ans.append([id, response])
 # 保存成csv
 ans_df = pd.DataFrame(ans, columns=["文章ID", "匹配标签"])
-ans_df.to_csv("../csdn_test_ans.csv", index=False, encoding='utf-8')
-    
+ans_df.to_csv("csdn_test_ans.csv", index=False, encoding='utf-8')
 
 # 计算 precision, recall 和 F1 分数
 right_ans = test_data["Tags"].tolist()
 predict_ans = [ans[i][1] for i in range(len(right_ans))]
 
+# 转换为 one-hot 格式或直接处理多标签
+precision, recall, f1, _ = precision_recall_fscore_support(right_ans, predict_ans, average='micro')
+
+# 计算标签准确率precision
 correct = 0
 for i in range(len(right_ans)):
     if right_ans[i] == predict_ans[i]:
         correct += 1
+    else:
+        # 拆开tag
+        right_tags = right_ans[i].split(",")
+        predict_tags = predict_ans[i].split(",")
+        # 忽略标签顺序，如果一样的就算对
+        if set(right_tags) == set(predict_tags):
+            correct += 1
+        
+precision = correct / len(right_ans)
 
-accuracy = correct / len(right_ans)
-print("precision:", accuracy)
+f1_score = 2 * precision * recall / (precision + recall)
 
-recall = recall_score(right_ans, predict_ans, average='micro')
-print("recall:", recall)
-
-f1_score = 2 * accuracy * recall / (accuracy + recall)
-print("f1_score:", f1_score)
+print(f"Precision: {precision}, Recall: {recall}, F1: {f1_score}")

@@ -1,0 +1,6 @@
+transformers
+tqdm
+accelerate
+scikit-learn
+pandas
+openpyxl

@@ -7,7 +7,7 @@ from sklearn.metrics import precision_recall_fscore_support, precision_score, re
 model_path = "xxx"
 test_data_path = "csdn_test.xlsx"
 save_data_path = "pred_list_save.csv"
-sys_prompt = "You are Qwen. You are an expert at categorizing tags based on blog content."
+sys_prompt = "Tell me the tags based on the blog content."
 ######### config #########
 
 tokenizer = AutoTokenizer.from_pretrained(
@@ -28,7 +28,7 @@ model = AutoModelForCausalLM.from_pretrained(
 test_data = pd.read_excel(test_data_path)
 
 def pred_list(content):
-    user_prompt = "根据博客内容预测其标签。\n" + content
+    user_prompt = content
     messages = [
         {"role": "system", "content": sys_prompt},
         {"role": "user", "content": user_prompt}
