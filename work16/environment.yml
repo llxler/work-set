@@ -1,4 +1,4 @@
-name: zbctemplate
+name: lxl
 channels:
   - pytorch
   - nvidia

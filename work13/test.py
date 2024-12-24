@@ -24,7 +24,7 @@ def get_f1_score(y, y_hat):
 # TODO 修改这里的参数，包括模型路径、测试数据路径和输出路径，以及系统提示词
 parser = argparse.ArgumentParser()
 parser.add_argument("--model_dir", type=str, default="./model")
-parser.add_argument("--sys_prompt", type=str, default="You are Qwen. You are an expert at categorizing tags based on blog content.")
+parser.add_argument("--sys_prompt", type=str, default="Tell me the tags based on the blog content.")
 parser.add_argument("--test_dir", type=str, default="csdn_test.xlsx")
 parser.add_argument("--output_dir", type=str, default="pred_list.csv")
 args = parser.parse_args()

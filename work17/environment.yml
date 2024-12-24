@@ -5,21 +5,6 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - _libgcc_mutex=0.1=conda_forge
-  - _openmp_mutex=4.5=2_gnu
-  - accelerate=1.2.1=pyhd8ed1ab_1
-  - aiohappyeyeballs=2.4.4=py310h06a4308_0
-  - aiohttp=3.11.10=py310h5eee18b_0
-  - aiosignal=1.2.0=pyhd3eb1b0_0
-  - arrow-cpp=17.0.0=h865e1df_1
-  - asttokens=3.0.0=pyhd8ed1ab_1
-  - async-timeout=5.0.1=py310h06a4308_0
-  - attrs=24.3.0=py310h06a4308_0
-  - aws-c-auth=0.6.19=h5eee18b_0
-  - aws-c-cal=0.5.20=hdbd6064_0
-  - aws-c-common=0.8.5=h5eee18b_0
-  - aws-c-compression=0.2.16=h5eee18b_0
-  - aws-c-event-stream=0.2.15=h6a678d5_0
   - aws-c-http=0.6.25=h5eee18b_0
   - aws-c-io=0.13.10=h5eee18b_0
   - aws-c-mqtt=0.7.13=h5eee18b_0
@@ -237,3 +222,18 @@ dependencies:
   - zipp=3.21.0=pyhd8ed1ab_1
   - zlib=1.2.13=h5eee18b_1
   - zstd=1.5.6=hc292b87_0
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=2_gnu
+  - accelerate=1.2.1=pyhd8ed1ab_1
+  - aiohappyeyeballs=2.4.4=py310h06a4308_0
+  - aiohttp=3.11.10=py310h5eee18b_0
+  - aiosignal=1.2.0=pyhd3eb1b0_0
+  - arrow-cpp=17.0.0=h865e1df_1
+  - asttokens=3.0.0=pyhd8ed1ab_1
+  - async-timeout=5.0.1=py310h06a4308_0
+  - attrs=24.3.0=py310h06a4308_0
+  - aws-c-auth=0.6.19=h5eee18b_0
+  - aws-c-cal=0.5.20=hdbd6064_0
+  - aws-c-common=0.8.5=h5eee18b_0
+  - aws-c-compression=0.2.16=h5eee18b_0
+  - aws-c-event-stream=0.2.15=h6a678d5_0

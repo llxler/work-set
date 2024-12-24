@@ -22,7 +22,18 @@
 
 ### 环境搭建  
 ```bash  
-conda create -n interm-proj python=3.10  
-conda activate interm-proj  
-pip install -r requirements.txt  
-python deploy.py --model model.onnx  
+conda env create -f environment.yml
+conda activate llm
+```
+
+### 推理过程
+修改这里面的参数
+```python
+parser = argparse.ArgumentParser()
+parser.add_argument("--model_dir", type=str, default="./model")
+parser.add_argument("--sys_prompt", type=str, default="You are an expert at categorizing tags based on blog content.")
+parser.add_argument("--test_dir", type=str, default="csdn_test.xlsx")
+parser.add_argument("--output_dir", type=str, default="pred_list.csv")
+args = parser.parse_args()
+```
+或者运行命令`python inference.py --model_dir model`

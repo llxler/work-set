@@ -5,7 +5,7 @@ import argparse
 
 def args_parser():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--model_dir", type=str, default="./model")
+    parser.add_argument("--model_dir", type=str, required=True, help="The model directory")
     parser.add_argument("--test_dir", type=str, default="csdn_test.xlsx")
     parser.add_argument("--output_dir", type=str, default="csdn_tags_pred.csv")
     args = parser.parse_args()

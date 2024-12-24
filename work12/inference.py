@@ -5,7 +5,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--model_dir", type=str, default="./model")
-parser.add_argument("--sys_prompt", type=str, default="You are Qwen. You are an expert at categorizing tags based on blog content.")
+parser.add_argument("--sys_prompt", type=str, default="You are an expert at categorizing tags based on blog content.")
 parser.add_argument("--test_dir", type=str, default="csdn_test.xlsx")
 parser.add_argument("--output_dir", type=str, default="pred_list.csv")
 args = parser.parse_args()
