@@ -15,7 +15,7 @@ def get_args():
 
 def test(content, model, tokenizer):
     messages = [
-        {"role": "system", "content": "You are Qwen. You are an expert at categorizing tags based on blog content."},
+        {"role": "system", "content": "You are Interm. You are an expert at categorizing tags based on blog content."},
         {"role": "user", "content": content}
     ]
     text = tokenizer.apply_chat_template(
