@@ -59,7 +59,7 @@ def main():
         id = row["    Blog ID"]
         content = row["正文前 256符号"]
         messages = [
-            {"role": "system", "content": "You are Qwen. You are an expert at categorizing tags based on blog content."},
+            {"role": "system", "content": "You are an expert at categorizing tags based on blog content."},
             {"role": "user", "content": content}
         ]
         text = tokenizer.apply_chat_template(

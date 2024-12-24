@@ -36,7 +36,7 @@ def calculate_score(predict_ans, right_ans):
 def pred_content(content: str, model, tokenizer):
     content = content
     messages = [
-        {"role": "system", "content": "You are Qwen. You are a helpful assistant."},
+        {"role": "system", "content": "Based on the content, predict the tags."},
         {"role": "user", "content": content}
     ]
     text = tokenizer.apply_chat_template(

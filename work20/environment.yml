@@ -5,32 +5,6 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - _libgcc_mutex=0.1=conda_forge
-  - _openmp_mutex=4.5=2_gnu
-  - accelerate=1.2.1=pyhd8ed1ab_1
-  - aiohappyeyeballs=2.4.4=py310h06a4308_0
-  - aiohttp=3.11.10=py310h5eee18b_0
-  - aiosignal=1.2.0=pyhd3eb1b0_0
-  - arrow-cpp=17.0.0=h865e1df_1
-  - asttokens=3.0.0=pyhd8ed1ab_1
-  - async-timeout=5.0.1=py310h06a4308_0
-  - attrs=24.3.0=py310h06a4308_0
-  - aws-c-auth=0.6.19=h5eee18b_0
-  - aws-c-cal=0.5.20=hdbd6064_0
-  - aws-c-common=0.8.5=h5eee18b_0
-  - aws-c-compression=0.2.16=h5eee18b_0
-  - aws-c-event-stream=0.2.15=h6a678d5_0
-  - aws-c-http=0.6.25=h5eee18b_0
-  - aws-c-io=0.13.10=h5eee18b_0
-  - aws-c-mqtt=0.7.13=h5eee18b_0
-  - aws-c-s3=0.1.51=hdbd6064_0
-  - aws-c-sdkutils=0.1.6=h5eee18b_0
-  - aws-checksums=0.1.13=h5eee18b_0
-  - aws-crt-cpp=0.18.16=h6a678d5_0
-  - aws-sdk-cpp=1.11.212=hecad206_0
-  - binutils_impl_linux-64=2.40=h5293946_0
-  - binutils_linux-64=2.40.0=hc2dff05_1
-  - blas=1.0=mkl
   - boost-cpp=1.82.0=hdb19cb5_2
   - bottleneck=1.4.2=py310ha9d4c09_0
   - brotli-python=1.0.9=py310h6a678d5_8
@@ -142,6 +116,32 @@ dependencies:
   - libwebp-base=1.3.2=hd590300_1
   - llvm-openmp=12.0.1=h4bd325d_1
   - lz4-c=1.9.4=h6a678d5_1
+  - _libgcc_mutex=0.1=conda_forge
+  - _openmp_mutex=4.5=2_gnu
+  - accelerate=1.2.1=pyhd8ed1ab_1
+  - aiohappyeyeballs=2.4.4=py310h06a4308_0
+  - aiohttp=3.11.10=py310h5eee18b_0
+  - aiosignal=1.2.0=pyhd3eb1b0_0
+  - arrow-cpp=17.0.0=h865e1df_1
+  - asttokens=3.0.0=pyhd8ed1ab_1
+  - async-timeout=5.0.1=py310h06a4308_0
+  - attrs=24.3.0=py310h06a4308_0
+  - aws-c-auth=0.6.19=h5eee18b_0
+  - aws-c-cal=0.5.20=hdbd6064_0
+  - aws-c-common=0.8.5=h5eee18b_0
+  - aws-c-compression=0.2.16=h5eee18b_0
+  - aws-c-event-stream=0.2.15=h6a678d5_0
+  - aws-c-http=0.6.25=h5eee18b_0
+  - aws-c-io=0.13.10=h5eee18b_0
+  - aws-c-mqtt=0.7.13=h5eee18b_0
+  - aws-c-s3=0.1.51=hdbd6064_0
+  - aws-c-sdkutils=0.1.6=h5eee18b_0
+  - aws-checksums=0.1.13=h5eee18b_0
+  - aws-crt-cpp=0.18.16=h6a678d5_0
+  - aws-sdk-cpp=1.11.212=hecad206_0
+  - binutils_impl_linux-64=2.40=h5293946_0
+  - binutils_linux-64=2.40.0=hc2dff05_1
+  - blas=1.0=mkl
   - magma=2.7.1=h2c23e93_0
   - markupsafe=3.0.2=py310h89163eb_1
   - matplotlib-inline=0.1.7=pyhd8ed1ab_1

@@ -11,13 +11,11 @@ sys_prompt = "Tell me the tags based on the blog content."
 ######### config #########
 
 tokenizer = AutoTokenizer.from_pretrained(
-    # pretrained_model_name_or_path="Qwen-2.5-7B-Instruct",
     pretrained_model_name_or_path=model_path,
     local_files_only=True,
     trust_remote_code=True,
 )
 model = AutoModelForCausalLM.from_pretrained(
-    # pretrained_model_name_or_path="Qwen-2.5-7B-Instruct",
     pretrained_model_name_or_path=model_path,
     torch_dtype="auto",
     device_map="auto",

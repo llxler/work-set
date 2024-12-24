@@ -7,7 +7,7 @@ from tqdm import tqdm
 from sklearn.metrics import precision_recall_fscore_support
 
 # Load configuration
-CONFIG_PATH = "config_path"
+CONFIG_PATH = "inference-config.yaml"
 def load_config(config_path):
     with open(config_path, "r") as file:
         return yaml.safe_load(file)

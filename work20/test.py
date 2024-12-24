@@ -46,7 +46,7 @@ def load_model_and_tokenizer(model_path):
 def generate_label(model, tokenizer, content):
     content = content
     messages = [
-        {"role": "system", "content": "You are Qwen, created by Alibaba Cloud. You are a helpful assistant."},
+        {"role": "system", "content": "Tell me the tags based on the blog content."},
         {"role": "user", "content": content}
     ]
     text = tokenizer.apply_chat_template(
@@ -67,7 +67,7 @@ def generate_label(model, tokenizer, content):
     return tokenizer.batch_decode(generated_ids, skip_special_tokens=True)[0]
 
 parser = argparse.ArgumentParser(description="CSDN Tags Predict Pipeline")
-parser.add_argument("--model_path", default="lxl1/model", help="Path to the model directory")
+parser.add_argument("--model_path", default="download_path", help="Path to the model directory")
 parser.add_argument("--test_file", default="csdn_test.xlsx", help="Path to the test data file")
 parser.add_argument("--output_file", default="predictions.csv", help="File to save predictions")
 args = parser.parse_args()
