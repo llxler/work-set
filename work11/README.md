@@ -43,5 +43,5 @@ conda activate <your_env_name>
 ```
 
 ### 推理过程
-打开文件`interm-test.py`, 然后修改get_args()函数里面的`--model_path` `--test_data_path` `--output_path`, 然后运行`python interm-test.py`即可，或者在运行时加上上述三个参数可以。
+打开文件`interm-test.py`, 然后修改get_args()函数里面的`--model_path` `--test_data_path` `--output_path`, 然后运行`python interm-test.py`即可，或者在运行时加上上述三个参数也可以。
 

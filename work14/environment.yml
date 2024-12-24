@@ -1,4 +1,4 @@
-name: template
+name: csdn
 channels:
   - pytorch
   - nvidia
